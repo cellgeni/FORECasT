@@ -1,1 +1,28 @@
 {% extends "base.html" %}
+{% block title %} Mutational profile {% endblock %}
+{% block content %}
+    <div class="container">
+
+ <form class="form-inline" action="" method="post">
+  <div class="form-group">
+{#    <label for="sequence">Sequence:</label>#}
+      {{ form.seq.label }} {{ form.seq }}
+{#    <input type="text" class="form-control" id="sequence">#}
+  </div>
+  <div class="form-group">
+{#    <label for="cut-site">Cut at position:</label>#}
+{#    <input type="number" class="form-control" id="cut_site">#}
+
+      {{ form.cut_site.label }} {{ form.cut_site }}
+  </div>
+  <button type="submit" class="btn btn-submit">Build</button>
+</form>
+
+    <div class="plot">
+        {{ plot }}
+
+    </div>
+
+
+</div>
+{% endblock content %}
