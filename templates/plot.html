@@ -1,28 +1,26 @@
 {% extends "base.html" %}
-{% block title %} Mutational profile {% endblock %}
+{% block title %}CasPER{% endblock %}
 {% block content %}
-    <div class="container">
+    <div class="container main-block" >
+    <h2>CasPER</h2>
+    <h5>Computational prediction of editing outcomes resulting from Cas9-induced double strand breaks</h5>
+        {% if form %}
+            <form action="" method="post" class="main-form">
+                <div class="form-group">
+                    {{ form.seq.label }} {{ form.seq }}
+                </div>
+                <div class="form-group">
+                    {{ form.cut_site.label }} {{ form.cut_site }}
+                </div>
+                <button type="submit" class="btn btn-submit">Submit</button>
+            </form>
+        {% endif %}
 
- <form class="form-inline" action="" method="post">
-  <div class="form-group">
-{#    <label for="sequence">Sequence:</label>#}
-      {{ form.seq.label }} {{ form.seq }}
-{#    <input type="text" class="form-control" id="sequence">#}
-  </div>
-  <div class="form-group">
-{#    <label for="cut-site">Cut at position:</label>#}
-{#    <input type="number" class="form-control" id="cut_site">#}
+        <div class="plot">
+            {{ plot|safe }}
 
-      {{ form.cut_site.label }} {{ form.cut_site }}
-  </div>
-  <button type="submit" class="btn btn-submit">Build</button>
-</form>
+        </div>
 
-    <div class="plot">
-        {{ plot }}
 
     </div>
-
-
-</div>
 {% endblock content %}
