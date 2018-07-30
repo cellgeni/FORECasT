@@ -4,7 +4,7 @@ from flask import Flask, render_template, request
 from markupsafe import Markup
 from wtforms import validators
 
-from config import MODEL_URL
+from app.config import MODEL_URL
 
 app = Flask(__name__)
 
