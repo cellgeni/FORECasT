@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mprofile-web
+spec:
+  selector:
+    matchLabels:
+      app: mprofile-web
+  replicas: 1
+  template:
+    metadata:
+      name: mprofile-web
+      labels:
+        app: mprofile-web
+    spec:
+      containers:
+      - image: quay.io/cellgeni/mutational-profile-web:v0.1
+        imagePullPolicy: IfNotPresent
+        name: mprofile-web
+        ports:
+        - containerPort: 8005
+          name: mprofile-web

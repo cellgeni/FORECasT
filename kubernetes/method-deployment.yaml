@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mprofile-method
+spec:
+  selector:
+    matchLabels:
+      app: mprofile-method
+  replicas: 1
+  template:
+    metadata:
+      name: mprofile-method
+      labels:
+        app: mprofile-method
+    spec:
+      containers:
+      - image: quay.io/cellgeni/mprofile-method:v0.1
+        imagePullPolicy: IfNotPresent
+        name: mprofile-method
+        ports:
+        - containerPort: 8006
+          name: mprofile-method

@@ -1,12 +1,14 @@
+import os
+from urllib.parse import urljoin
+
 import requests
 import wtforms
 from flask import Flask, render_template, request
 from markupsafe import Markup
 from wtforms import validators
 
-from app.config import MODEL_URL
-
-app = Flask(__name__)
+app = Flask(__name__, template_folder="templates")
+MODEL_URL = urljoin(os.getenv("MODEL_HOST", "http://mprofile-method.default.svc.cluster.local"), "/plot")
 
 
 class MutationalProfileForm(wtforms.Form):
