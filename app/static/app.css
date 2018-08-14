@@ -9,3 +9,7 @@
 .plot{
     margin-top: 20px;
 }
+
+g.mpld3-xaxis, g.mpld3-yaxis{
+    display:none
+}
