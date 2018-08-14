@@ -6,7 +6,6 @@ metadata:
     app: mprofile-web
 spec:
   type: LoadBalancer
-  loadBalancerIP: 172.27.16.132
   ports:
   - port: 8005
     targetPort: mprofile-web

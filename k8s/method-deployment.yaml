@@ -14,7 +14,7 @@ spec:
         app: mprofile-method
     spec:
       containers:
-      - image: quay.io/cellgeni/mprofile-method:v0.1
+      - image: quay.io/felicityallen/selftarget
         imagePullPolicy: IfNotPresent
         name: mprofile-method
         ports:
