@@ -3,11 +3,15 @@
 }
 
 .main-form{
-    padding-top: 10px;
+    padding-top: 25px;
 }
 
 .plot{
     margin-top: 20px;
+}
+
+.example{
+    font-size: 0.7em;
 }
 
 g.mpld3-xaxis, g.mpld3-yaxis{

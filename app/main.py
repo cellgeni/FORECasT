@@ -13,7 +13,7 @@ template = "plot.html"
 MODEL_URL = urljoin(os.getenv("MODEL_HOST", "http://mprofile-method.default.svc.cluster.local"), "/plot")
 
 
-class MutaGenValidators:
+class MutaGenValidators(object):
 
     @staticmethod
     def pam_idx_validator(form, field):

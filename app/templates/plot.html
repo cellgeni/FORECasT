@@ -1,17 +1,19 @@
 {% extends "base.html" %}
-{% block title %}mutaGEN{% endblock %}
+{% block title %}FORCasT: Favoured Outcomes of Repair at Cas9 Targets{% endblock %}
 {% block content %}
     <div class="container main-block" >
-    <h2>mutaGEN</h2>
+    <h2>FORCasT: Favoured Outcomes of Repair at Cas9 Targets</h2>
     <h5>Computational prediction of editing outcomes resulting from Cas9-induced double strand breaks</h5>
         {% if form %}
             <form action="" method="post" class="main-form">
                 <div class="form-group">
                     {{ form.seq.label }} {{ form.seq }}
+                    <p class="example">e.g. 'ATGCTAGCTAGGGCATGAGGCATGCTAGTGACTGCATGGTAC'</p>
                     {{ show_errors(form.seq) }}
                 </div>
                 <div class="form-group">
                     {{ form.pam_idx.label }} {{ form.pam_idx }}
+                    <p class="example">e.g. '17'</p>
                     {{ show_errors(form.pam_idx) }}
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
