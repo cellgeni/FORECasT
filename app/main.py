@@ -10,7 +10,8 @@ from wtforms import validators, ValidationError
 app = Flask(__name__, template_folder="templates")
 template = "plot.html"
 
-MODEL_URL = urljoin(os.getenv("MODEL_HOST", "http://mprofile-method.default.svc.cluster.local"), "/plot")
+MODEL_HOST = os.getenv("MODEL_HOST", "http://mprofile-method.default.svc.cluster.local")
+MODEL_URL = urljoin(MODEL_HOST, "/plot")
 
 
 class MutaGenValidators(object):
@@ -70,8 +71,8 @@ def plot():
             else:
                 return render_template(template, plot="Error occurred", form=form)
         plot_html = plot_data.json().get("plot")
-        return render_template(template, plot=Markup(plot_html), form=form)
-    return render_template(template, form=form)
+        return render_template(template, plot=Markup(plot_html), form=form, model_host=MODEL_HOST)
+    return render_template(template, form=form, model_host=MODEL_HOST)
 
 
 if __name__ == '__main__':

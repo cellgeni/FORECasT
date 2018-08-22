@@ -16,8 +16,10 @@
                     <p class="example">e.g. '17'</p>
                     {{ show_errors(form.pam_idx) }}
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary" id="submit-seq">Submit</button>
+             <a href="{{ model_host }}/api/profile" target="_blank" class="btn btn-success" hidden="True" id="download-report">Download</a>
             </form>
+
         {% endif %}
 
         <div class="plot">
