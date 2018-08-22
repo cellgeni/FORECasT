@@ -3,7 +3,7 @@ from urllib.parse import urljoin
 
 import requests
 import wtforms
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from markupsafe import Markup
 from wtforms import validators, ValidationError
 
@@ -50,7 +50,12 @@ class MutationalProfileForm(wtforms.Form):
                                                               MutaGenValidators.ngg_pam_validator])
 
 
-@app.route('/', methods=["GET", "POST"])
+@app.route('/')
+def hello():
+    return redirect(url_for('plot'))
+
+
+@app.route('/FORECasT', methods=["GET", "POST"])
 def plot():
     form = MutationalProfileForm(request.form)
     if request.method == 'POST' and form.validate():
