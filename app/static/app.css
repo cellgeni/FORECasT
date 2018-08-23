@@ -21,3 +21,12 @@ g.mpld3-xaxis, g.mpld3-yaxis{
 #download-report{
     margin-left: 10px;
 }
+
+.logo{
+    width: 200px;
+    margin-bottom: 40px;
+}
+
+.content{
+    margin-left: 9px;
+}

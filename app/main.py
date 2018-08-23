@@ -71,9 +71,22 @@ def plot():
             else:
                 return render_template(template, plot="Error occurred", form=form)
         plot_html = plot_data.json().get("plot")
-        return render_template(template, plot=Markup(plot_html), form=form, model_host=MODEL_HOST)
-    return render_template(template, form=form, model_host=MODEL_HOST)
+        return render_template(template, plot=Markup(plot_html), form=form)
+    return render_template(template, form=form)
 
+
+@app.route('/profile', methods=["GET"])
+def get_profile():
+    """
+       request body: {"seq": "SEQUENCE", "pam_idx": "NUMBER"}
+       :return: {"plot": "plot data"}
+       :return: {"error": "error message"}
+       """
+    data = request.args or request.get_json()
+    seq = data.get("seq", "")
+    pam_idx = int(data.get("pam_idx", ""))
+    resp = requests.get(urljoin(MODEL_HOST, "api/profile"), params={"seq": seq, "pam_idx": pam_idx})
+    return (resp.text, resp.status_code, resp.headers.items())
 
 if __name__ == '__main__':
     app.run()
