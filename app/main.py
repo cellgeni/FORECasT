@@ -82,11 +82,14 @@ def get_profile():
        :return: {"plot": "plot data"}
        :return: {"error": "error message"}
        """
+    # here we just proxy the request to the model
     data = request.args or request.get_json()
     seq = data.get("seq", "")
     pam_idx = int(data.get("pam_idx", ""))
     resp = requests.get(urljoin(MODEL_HOST, "api/profile"), params={"seq": seq, "pam_idx": pam_idx})
-    return (resp.text, resp.status_code, resp.headers.items())
+    # https://stackoverflow.com/questions/19568950/return-a-requests-response-object-from-flask
+    return resp.text, resp.status_code, resp.headers.items()
+
 
 if __name__ == '__main__':
     app.run()

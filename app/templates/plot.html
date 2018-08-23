@@ -3,7 +3,8 @@
 {% block content %}
     <div class="container main-block">
         <img src="{{ url_for('static', filename='forecast_3.png') }}" class="logo" alt="Forecast">
-        <div class="content">
+        <div class="row">
+        <div class="col content">
             <h2>FORECasT (Favoured Outcomes of Repair Events at Cas9 Targets)</h2>
             <h5>Computational prediction of editing outcomes resulting from Cas9-induced double strand breaks</h5>
             {% if form %}
@@ -15,15 +16,18 @@
                     </div>
                     <div class="form-group">
                         {{ form.pam_idx.label }} {{ form.pam_idx }}
+                        <button type="button" class="btn btn-light" id="suggest-idx">Suggest an index</button>
                         <p class="example">e.g. '17'</p>
-{#                        <button type="submit" class="btn btn-primary" id="suggest-seq">Suggest an index</button>#}
-
                         {{ show_errors(form.pam_idx) }}
                     </div>
                     <button type="submit" class="btn btn-primary" id="submit-seq">Submit</button>
                     <button type="button" class="btn btn-success" hidden="True"
-                       id="download-report">Download</button>
+                            id="download-report">Download
+                    </button>
                 </form>
+
+
+                </div>
                 </div>
             {% endif %}
 
