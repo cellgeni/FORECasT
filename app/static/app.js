@@ -1,5 +1,4 @@
-var current_pos = 0;
-var previous_idx = -2;
+const MIN_INDEX = 11;
 
 $(document).ready(function () {
     $(document.body).on("click", "#download-report", function () {
@@ -12,22 +11,25 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     $(document.body).on("change", "#seq", function () {
-        current_pos = 0;
+        $("#pam_idx").val("");
     })
 });
 
-function recount(seq, matches) {
-    let result = matches[window.current_pos];
-    let current_idx = seq.indexOf(result, window.previous_idx + 2) - 1;
-    if (window.current_pos == matches.length) {
-        window.current_pos = 0;
-        window.previous_idx = -2;
-        return recount(seq, matches);
-    } else {
-        window.current_pos += 1;
-        window.previous_idx = current_idx;
-    }
-    return current_idx;
+function recount(seq, current_idx) {
+    if (!current_idx)
+        current_idx = 0;
+    current_idx = parseInt(current_idx);
+    let new_idx = seq.indexOf("GG", current_idx + 2) - 1;
+    if (new_idx > 0 && new_idx < MIN_INDEX) {
+        let next_idx = seq.indexOf("GG", new_idx + 2) - 1;
+        if (next_idx && next_idx > 0)
+            return recount(seq, new_idx);
+        else
+            $("#pam_idx").val("Sequence too short or PAM too close to edge of sequence (must have at least 10nt either side of cut site)");
+    } else if (new_idx < 0)
+        return recount(seq, 0);
+    else
+        return new_idx;
 }
 
 $(document).ready(function () {
@@ -39,8 +41,10 @@ $(document).ready(function () {
             pam_idx.val("Empty or non-PAM sequence");
             return;
         }
-        let current_idx = recount(seq, matches);
-        pam_idx.val(current_idx);
+        let current_idx = pam_idx.val();
+        let new_idx = recount(seq, current_idx);
+        if (new_idx)
+            pam_idx.val(new_idx);
 
     });
 });
