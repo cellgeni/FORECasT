@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: mprofile-web
+  name: forecast
   labels:
-    app: mprofile-web
+    app: forecast
 spec:
   type: LoadBalancer
   ports:
   - port: 8005
-    targetPort: mprofile-web
+    targetPort: forecast
   selector:
-    app: mprofile-web
+    app: forecast
 

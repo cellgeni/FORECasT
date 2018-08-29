@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mprofile-web
+  name: forecast
 spec:
   selector:
     matchLabels:
-      app: mprofile-web
+      app: forecast
   replicas: 1
   template:
     metadata:
-      name: mprofile-web
+      name: forecast
       labels:
-        app: mprofile-web
+        app: forecast
     spec:
       containers:
-      - image: quay.io/cellgeni/mprofile-web:v0.1
+      - image: quay.io/cellgeni/forecast:v0.1.7
         imagePullPolicy: IfNotPresent
-        name: mprofile-web
+        name: forecast
         ports:
         - containerPort: 8005
-          name: mprofile-web
+          name: forecast

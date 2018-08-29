@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mprofile-method
+  name: predictor
 spec:
   selector:
     matchLabels:
-      app: mprofile-method
+      app: predictor
   replicas: 1
   template:
     metadata:
-      name: mprofile-method
+      name: predictor
       labels:
-        app: mprofile-method
+        app: predictor
     spec:
       containers:
-      - image: quay.io/felicityallen/selftarget:v0.1
+      - image: quay.io/felicityallen/selftarget:v0.1.2
         imagePullPolicy: IfNotPresent
-        name: mprofile-method
+        name: predictor
         ports:
         - containerPort: 8006
-          name: mprofile-method
+          name: predictor
