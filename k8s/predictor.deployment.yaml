@@ -14,7 +14,7 @@ spec:
         app: predictor
     spec:
       containers:
-      - image: quay.io/felicityallen/selftarget:v0.1.2
+      - image: quay.io/felicityallen/selftarget:v0.1.3
         imagePullPolicy: IfNotPresent
         name: predictor
         ports:

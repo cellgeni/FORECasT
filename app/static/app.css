@@ -34,3 +34,17 @@ g.mpld3-xaxis, g.mpld3-yaxis{
 #suggest-idx{
     margin-left: 25px;
 }
+
+html, body {
+  height: 100%;
+}
+body {
+  display: flex;
+  flex-direction: column;
+}
+.content {
+  flex: 1 0 auto;
+}
+footer {
+  flex-shrink: 0;
+}
