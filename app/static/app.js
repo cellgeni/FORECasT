@@ -49,6 +49,15 @@ $(document).ready(function () {
     });
 });
 
+$(document).ready(function () {
+    $(document.body).on("click", "#show-example", function () {
+        let seq = $("#seq");
+        let pam_idx = $("#pam_idx");
+        seq.val('ATGCTAGCTAGGGCATGAGGCATGCTAGTGACTGCATGGTAC');
+        pam_idx.val(17);
+    });
+});
+
 
 $(document).ready(function () {
 
