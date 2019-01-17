@@ -10,7 +10,7 @@
             {% if form %}
             <form action="#results" method="post" class="main-form" name="results">
                 <div class="form-group">
-                    {{ form.seq.label }} {{ form.seq(size=50) }}
+                    {{ form.seq.label(id="seq-label") }} {{ form.seq(size=45) }}
                     <button type="button" class="btn btn-light" id="show-example">Example</button>
                     <!--<p class="example">e.g. 'ATGCTAGCTAGGGCATGAGGCATGCTAGTGACTGCATGGTAC'</p>-->
 

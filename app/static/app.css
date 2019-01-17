@@ -20,6 +20,10 @@ g.mpld3-xaxis, g.mpld3-yaxis {
     display: none
 }
 
+#seq-label{
+    margin-right: 13px;
+}
+
 .errors {
     color: #ff0000;
 }
@@ -30,6 +34,7 @@ g.mpld3-xaxis, g.mpld3-yaxis {
 
 .logo {
     width: 800px;
+    height: 100%;
     margin-bottom: 0px;
 }
 
@@ -49,9 +54,6 @@ g.mpld3-xaxis, g.mpld3-yaxis {
     margin-right: auto;
 }
 
-#suggest-idx {
-    margin-left: 25px;
-}
 
 html, body {
     height: 100%;
@@ -71,8 +73,7 @@ footer {
 }
 
 #footer {
-    /* ugly & quick */
-    padding-left: 11.5%;
+    width: 800px;
 }
 
 .btn-primary {
