@@ -14,9 +14,27 @@ spec:
         app: forecast
     spec:
       containers:
-      - image: quay.io/cellgeni/mprofile-web:v0.1.8
+      - image: quay.io/cellgeni/mprofile-web:v0.1.11
         imagePullPolicy: IfNotPresent
         name: forecast
         ports:
         - containerPort: 8005
+          hostPort: 8005
           name: forecast
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: 1
+          limits:
+            memory: "2Gi"
+            cpu: 2
+        env:
+          - name: MODEL_HOST
+            value: http://predictor.default.svc.cluster.local
+        livenessProbe:
+          httpGet:
+            path: /FORECasT
+            port: forecast
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+          periodSeconds: 240

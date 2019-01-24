@@ -10,7 +10,7 @@ from wtforms import validators, ValidationError
 app = Flask(__name__, template_folder="templates")
 template = "plot.html"
 
-MODEL_HOST = os.getenv("MODEL_HOST", "http://mprofile-method.default.svc.cluster.local")
+MODEL_HOST = os.getenv("MODEL_HOST", "http://predictor.default.svc.cluster.local")
 MODEL_URL = urljoin(MODEL_HOST, "/plot")
 
 
