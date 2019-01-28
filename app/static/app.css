@@ -1,5 +1,5 @@
 .main-block {
-    padding: 10px;
+    padding: 0px;
 }
 
 .main-form{
@@ -37,6 +37,7 @@ g.mpld3-xaxis, g.mpld3-yaxis{
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+    padding: 0px;
 }
 
 .banner {
@@ -46,10 +47,6 @@ g.mpld3-xaxis, g.mpld3-yaxis{
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
-}
-
-#suggest-idx {
-    margin-left: 25px;
 }
 
 html, body {
@@ -62,8 +59,17 @@ body {
 .content {
   flex: 1 0 auto;
 }
+
+a {
+    color: rgb(44,83,86);
+}
+
 footer {
   flex-shrink: 0;
+}
+
+footer a{
+  color: rgb(34,57,138);
 }
 
 .btn-primary {
