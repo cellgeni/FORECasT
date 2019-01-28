@@ -19,12 +19,17 @@
 g.mpld3-xaxis, g.mpld3-yaxis {
     display: none
 }
+
 .errors {
     color: #ff0000;
 }
 
 #download-report {
     margin-left: 10px;
+}
+
+label[for=seq] {
+    margin-right: 14px;
 }
 
 .logo {
@@ -63,15 +68,19 @@ body {
 }
 
 a {
-    color: rgb(44,83,86);
+    color: rgb(44, 83, 86);
 }
 
 footer {
-  flex-shrink: 0;
+    flex-shrink: 0;
 }
 
-footer a{
-  color: rgb(34,57,138);
+#footer {
+    width: 800px;
+}
+
+footer a {
+    color: rgb(34, 57, 138);
 }
 
 .btn-primary {
