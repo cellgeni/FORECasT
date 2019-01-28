@@ -2,22 +2,22 @@
     padding: 0px;
 }
 
-.main-form{
+.main-form {
     padding: 25px;
-    background-color:rgb(218,230,231);
+    background-color: rgb(218, 230, 231);
     align-content: center;
 }
 
-.plot{
+.plot {
     margin-top: 20px;
 }
 
-.example{
+.example {
     font-size: 0.7em;
 }
 
-g.mpld3-xaxis, g.mpld3-yaxis{
-    display:none
+g.mpld3-xaxis, g.mpld3-yaxis {
+    display: none
 }
 .errors {
     color: #ff0000;
@@ -41,7 +41,7 @@ g.mpld3-xaxis, g.mpld3-yaxis{
 }
 
 .banner {
-    background-color: rgb(37,71,91);
+    background-color: rgb(37, 71, 91);
     color: #ffffff;
     justify-content: center;
     max-width: 800px;
@@ -50,14 +50,16 @@ g.mpld3-xaxis, g.mpld3-yaxis{
 }
 
 html, body {
-  height: 100%;
+    height: 100%;
 }
+
 body {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
+
 .content {
-  flex: 1 0 auto;
+    flex: 1 0 auto;
 }
 
 a {
@@ -73,13 +75,13 @@ footer a{
 }
 
 .btn-primary {
-    background-color: rgb(255,102,52);
-    #border-color: rgb(159,82,4);
-    border-color: rgb(206,52,0);
+    background-color: rgb(255, 102, 52);
+    #border-color: rgb(159, 82, 4);
+    border-color: rgb(206, 52, 0);
 }
 
 .btn-light {
-    background-color: rgb(75,140,146);
-    border-color: rgb(210,231,234);
+    background-color: rgb(75, 140, 146);
+    border-color: rgb(210, 231, 234);
     color: #ffffff;
 }

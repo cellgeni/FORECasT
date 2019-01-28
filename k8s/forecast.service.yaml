@@ -5,7 +5,7 @@ metadata:
   labels:
     app: forecast
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
   - port: 8005
     targetPort: forecast
