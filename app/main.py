@@ -5,6 +5,7 @@ import requests
 import wtforms
 from flask import Flask, render_template, request, redirect, url_for
 from markupsafe import Markup
+from werkzeug.exceptions import BadRequest
 from wtforms import validators, ValidationError
 
 app = Flask(__name__, template_folder="templates")
@@ -58,7 +59,27 @@ def hello():
 
 @app.route('/FORECasT', methods=["GET", "POST"])
 def plot():
+    data = request.args or request.get_json()
     form = MutationalProfileForm(request.form)
+
+    if data:
+        wge = data.get("wge", "")
+        oligo_id = data.get("id", "")
+        species = data.get("species")
+        if species:
+            plot_data = requests.get(MODEL_URL, params={"wge": wge,
+                                                        "id": oligo_id,
+                                                        "species": species})
+            error = plot_data.json().get("error")
+            if error:
+                if app.debug:
+                    return render_template(template, plot=error)
+                else:
+                    return render_template(template, plot="Error occurred")
+            plot_html = plot_data.json().get("plot")
+            return render_template(template, plot=Markup(plot_html))
+        else:
+            raise BadRequest()
     if request.method == 'POST' and form.validate():
         seq = form.seq.data
         pam_idx = form.pam_idx.data
@@ -93,4 +114,3 @@ def get_profile():
 
 if __name__ == '__main__':
     app.run(port=5002)
-
