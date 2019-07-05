@@ -1,12 +1,14 @@
+import http
 import os
+from json import JSONDecodeError
 from urllib.parse import urljoin
 
 import requests
 import wtforms
 from flask import Flask, render_template, request, redirect, url_for
 from markupsafe import Markup
-from werkzeug.exceptions import BadRequest
 from wtforms import validators, ValidationError
+
 
 app = Flask(__name__, template_folder="templates")
 template = "plot.html"
@@ -70,7 +72,10 @@ def plot():
             plot_data = requests.get(MODEL_URL, params={"wge": wge,
                                                         "id": oligo_id,
                                                         "species": species})
-            error = plot_data.json().get("error")
+            try:
+                error = plot_data.json().get("error")
+            except JSONDecodeError:
+                error = "Error occurred"
             if error:
                 if app.debug:
                     return render_template(template, plot=error)
@@ -79,7 +84,11 @@ def plot():
             plot_html = plot_data.json().get("plot")
             return render_template(template, plot=Markup(plot_html))
         else:
-            raise BadRequest()
+            return render_template(template, plot="Your request is malformed. <br>"
+                                                  "The parameters you can include in the GET request: <br>"
+                                                  "'wge' or 'oligo_id' (one of those) - required <br>"
+                                                  "'species' (values 'human' or 'mouse') - required"), \
+                   http.HTTPStatus.BAD_REQUEST
     if request.method == 'POST' and form.validate():
         seq = form.seq.data
         pam_idx = form.pam_idx.data
