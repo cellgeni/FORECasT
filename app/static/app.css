@@ -71,8 +71,16 @@ body {
     flex: 1 0 auto;
 }
 
+.caption{
+    margin-top: 10px;
+}
+
 a {
     color: rgb(44, 83, 86);
+}
+
+#under-plot{
+    margin-top: 15px;
 }
 
 footer {

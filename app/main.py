@@ -55,7 +55,7 @@ class MutationalProfileForm(wtforms.Form):
 
 
 @app.route('/')
-def hello():
+def homepage():
     return redirect(url_for('plot'))
 
 
@@ -77,12 +77,10 @@ def plot():
             except JSONDecodeError:
                 error = "Error occurred"
             if error:
-                if app.debug:
-                    return render_template(template, plot=error)
-                else:
-                    return render_template(template, plot="Error occurred")
+                return render_template(template, plot=error)
             plot_html = plot_data.json().get("plot")
-            return render_template(template, plot=Markup(plot_html))
+            guide = plot_data.json().get("guide")
+            return render_template(template, plot=Markup(plot_html), guide=guide)
         else:
             return render_template(template, plot="Your request is malformed. <br>"
                                                   "The parameters you can include in the GET request: <br>"
