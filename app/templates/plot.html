@@ -31,11 +31,40 @@
                 </div>
             </div>
         {% else %}
-            <p>WGE: <a href="{{ guide.wge_link }}">{{ guide.wge_id }}</a></p>
-            <p>Sequence: {{ guide.gene   }}</p>
-            <p>Strand: {{ guide.strand }}</p>
-            <p>Species: {{ guide.species }}</p>
-            <p>Location: {{ guide.location }}</p>
+            <table class="table under-plot">
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Guide info</th>
+                    <th scope="col"></th>
+                </tr>
+                <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>WGE id</td>
+                    <td><a href="{{ guide.wge_link }}">{{ guide.wge_id }}</a></td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Genome coordinates</td>
+                    <td>{{ guide.coordinates }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>Strand</td>
+                    <td>{{ guide.strand }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">4</th>
+                    <td>Species</td>
+                    <td>{{ guide.species.capitalize() }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">5</th>
+                    <td>Gene</td>
+                    <td>{{ guide.gene }}</td>
+                </tr>
+                </tbody>
+            </table>
         {% endif %}
         {% if plot %}
             <div class="plot">
@@ -46,9 +75,9 @@
             </div>
         {% endif %}
         {% if not form %}
-            <div id="under-plot">
+            <div class="under-plot">
                 <a href="{{ url_for('homepage') }}">
-                    <button type="button" class="btn btn-success">Search mutations for another sequence</button>
+                    <button type="button" class="btn btn-success">Predict mutations for another sequence</button>
                 </a>
             </div>
         {% endif %}

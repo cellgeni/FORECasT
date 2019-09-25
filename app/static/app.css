@@ -75,11 +75,11 @@ body {
     margin-top: 10px;
 }
 
-a {
+.dim-link {
     color: rgb(44, 83, 86);
 }
 
-#under-plot{
+.under-plot{
     margin-top: 15px;
 }
 
