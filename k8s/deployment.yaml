@@ -14,7 +14,7 @@ spec:
         app: forecast
     spec:
       containers:
-      - image: quay.io/cellgeni/mprofile-web:v0.1.13.1
+      - image: quay.io/cellgeni/mprofile-web:0.1.14.1
         imagePullPolicy: IfNotPresent
         name: forecast
         ports:
@@ -55,7 +55,7 @@ spec:
         app: predictor
     spec:
       containers:
-      - image: quay.io/felicityallen/selftarget:0.1.8
+      - image: quay.io/felicityallen/selftarget:0.1.9
         imagePullPolicy: IfNotPresent
         name: predictor
         ports:
