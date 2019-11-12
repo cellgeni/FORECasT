@@ -1,0 +1,108 @@
+.main-block {
+  padding: 0;
+}
+
+.main-form {
+  padding: 25px;
+  background-color: rgb(218, 230, 231);
+  align-content: center;
+}
+
+.plot {
+  margin-top: 20px;
+}
+
+.reference{
+  margin: 30px 0;
+}
+
+.example {
+  font-size: 0.7em;
+}
+
+g.mpld3-xaxis, g.mpld3-yaxis {
+  display: none
+}
+
+.errors {
+  color: #ff0000;
+}
+
+#download-report {
+  margin-left: 10px;
+}
+
+label[for=seq] {
+  margin-right: 14px;
+}
+
+.logo {
+  width: 800px;
+  margin-bottom: 0;
+}
+
+.content {
+  background-color: #ffffff;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0;
+}
+
+.banner {
+  background-color: rgb(37, 71, 91);
+  color: #ffffff;
+  justify-content: center;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+html, #main-block, body, #root {
+  height: 100%;
+}
+
+#main-block, body, #root {
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1 0 auto;
+}
+
+.caption{
+  margin-top: 10px;
+}
+
+.dim-link {
+  color: rgb(44, 83, 86);
+}
+
+.under-plot{
+  margin-top: 15px;
+}
+
+footer {
+  flex-shrink: 0;
+}
+
+#footer {
+  width: 800px;
+}
+
+footer a {
+  color: rgb(34, 57, 138);
+}
+
+.btn-primary {
+  background-color: rgb(255, 102, 52);
+  #border-color: rgb(159, 82, 4);
+  border-color: rgb(206, 52, 0);
+}
+
+.btn-light {
+  background-color: rgb(75, 140, 146);
+  border-color: rgb(210, 231, 234);
+  color: #ffffff;
+}

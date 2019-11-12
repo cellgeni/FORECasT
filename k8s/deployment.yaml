@@ -14,7 +14,7 @@ spec:
         app: forecast
     spec:
       containers:
-      - image: quay.io/cellgeni/mprofile-web:0.1.14.1
+      - image: quay.io/cellgeni/mprofile-web:1.0.0
         imagePullPolicy: IfNotPresent
         name: forecast
         ports:
@@ -23,11 +23,11 @@ spec:
           name: forecast
         resources:
           requests:
+            memory: "128Mi"
+            cpu: 0.5
+          limits:
             memory: "512Mi"
             cpu: 1
-          limits:
-            memory: "2Gi"
-            cpu: 2
         env:
           - name: MODEL_HOST
             value: http://predictor.default.svc.cluster.local
