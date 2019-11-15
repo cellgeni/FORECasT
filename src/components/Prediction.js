@@ -12,9 +12,9 @@ function Caption() {
     </div>;
 }
 
-class Validator{
+class Validator {
 
-    validate(seq, pamIndex){
+    validate(seq, pamIndex) {
 
     }
 }
@@ -28,7 +28,6 @@ class PredictionForm extends React.Component {
             "pamIndex": ""
         };
         this.suggestExample = this.suggestExample.bind(this);
-        this.downloadReport = this.downloadReport.bind(this);
         this.suggestIndex = this.suggestIndex.bind(this);
         this.onSeqChange = this.onSeqChange.bind(this);
         this.onPamIndexChange = this.onPamIndexChange.bind(this);
@@ -55,16 +54,14 @@ class PredictionForm extends React.Component {
         this.setSeq(event.target.value);
     }
 
-    onSubmit(event){
-        this.props.renderPlot(this.state.seq, this.state.pamIndex)
+    onSubmit(event) {
+        event.preventDefault();
+        this.props.renderPlot(this.state.seq, this.state.pamIndex);
+        // this.props.renderPlot(event)
     }
 
     onPamIndexChange(event) {
         this.setPamIndex(event.target.value);
-    }
-
-    downloadReport() {
-        window.open("/profile?seq=" + this.state.seq + "&pam_idx=" + this.state.pamIndex);
     }
 
     suggestExample() {
@@ -111,6 +108,8 @@ class PredictionForm extends React.Component {
 
 
     render() {
+        let MODEL_HOST = process.env.REACT_APP_MODEL_HOST;
+
         return <form action="#results" method="post" className="main-form" name="results">
 
             <div className="form-group">
@@ -137,12 +136,15 @@ class PredictionForm extends React.Component {
                 />
                 <button type="button" className="btn btn-light" id="suggest-idx" onClick={this.suggestIndex}>Suggest
                 </button>
-                <button type="submit" className="btn btn-primary" id="submit-seq" onClick={this.onSubmit}>Submit</button>
+                <button type="submit" className="btn btn-primary" id="submit-seq" onClick={this.onSubmit}>Submit
+                </button>
 
-                {this.props.plotIsValid && <button type="button" className="btn btn-primary" id="download-report"
-                        onClick={this.downloadReport}
-                >Download
-                </button> }
+                {this.props.plotIsValid &&
+                <a href={MODEL_HOST + "/api/profile?seq=" + this.state.seq + "&pam_idx=" + this.state.pamIndex}>
+                    <button type="button" className="btn btn-primary" id="download-report"
+                    >Download
+                    </button>
+                </a>}
             </div>
             {/*{{show_errors(form.seq)}}*/}
             {/*{{show_errors(form.pam_idx)}}*/}
