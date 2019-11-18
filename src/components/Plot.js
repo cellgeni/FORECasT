@@ -1,49 +1,35 @@
 import React from 'react';
-import $ from 'jquery';
+import HashLoader from 'react-spinners/HashLoader';
 
-function nodeScriptReplace(node) {
-    if ( nodeScriptIs(node) === true ) {
-        node.parentNode.replaceChild( nodeScriptClone(node) , node );
-    }
-    else {
-        let i = 0;
-        let children = node.childNodes;
-        while ( i < children.length ) {
-            nodeScriptReplace( children[i++] );
-        }
-    }
-
-    return node;
-}
-function nodeScriptIs(node) {
-    return node.tagName === 'SCRIPT';
-}
-function nodeScriptClone(node){
-    var script  = document.createElement("script");
-    script.text = node.innerHTML;
-    for( var i = node.attributes.length-1; i >= 0; i-- ) {
-        script.setAttribute( node.attributes[i].name, node.attributes[i].value );
-    }
-    return script;
-}
 
 class Plot extends React.Component {
 
-    componentDidMount() {
-        // const plotCode = this.props.data;
-        nodeScriptReplace($(".plotData"));
-        new Function($(".plotData"))();
+    componentDidUpdate() {
+        let plot = this.props.data;
+        if (plot) {
+            let plotCodeWithoutNewLineChars = plot.replace(/\r?\n|\r/g, '');
+            let plotBuildingFunction = /(!function.*mpld3\))/.exec(plotCodeWithoutNewLineChars)[0];
+            new Function(plotBuildingFunction)();
+        }
+
     }
 
     render() {
-        const plotHistory = this.props.plotIsValid ?
+        const plotIsValid = this.props.plotIsValid;
+        const plotHistory = plotIsValid ?
             <i>dashed line = cut site, red=inserted nucleotides, green=microhomology (location ambiguous)</i> :
             "";
-        // const data =
         return <div className="plot">
-            <div className="plotData" dangerouslySetInnerHTML={{__html: this.props.data}}>
-            </div>
+            <div id="plot"></div>
+            {!plotIsValid && this.props.data}
             {plotHistory}
+            <div className="loadingSign">
+                <HashLoader
+                    sizeUnit={"px"}
+                    color={'#21bc6b'}
+                    loading={this.props.loading}
+                />
+            </div>
         </div>
     }
 }

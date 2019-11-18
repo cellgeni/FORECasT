@@ -10,10 +10,12 @@ class ForecastApp extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            plot: ""
+            plot: "",
+            loading: false
         };
         this.renderPlot = this.renderPlot.bind(this);
         this.setPlot = this.setPlot.bind(this);
+        this.plotIsValid = this.plotIsValid.bind(this);
     }
 
     setPlot(plot){
@@ -21,6 +23,12 @@ class ForecastApp extends React.Component {
             "plot": plot
         });
     }
+
+    setIsPlotLoading(plotLoading){
+        this.setState({
+            "loading": plotLoading
+        })
+}
 
     renderPlot(seq, pamIndex) {
         let MODEL_HOST = process.env.REACT_APP_MODEL_HOST;
@@ -30,6 +38,7 @@ class ForecastApp extends React.Component {
         };
         // let data = new FormData(event.target);
         let MODEL_URL = MODEL_HOST + "/plot";
+        this.setIsPlotLoading(true);
         let request = new Request(MODEL_URL, {
                 method: 'post',
                 body: JSON.stringify(data),
@@ -44,6 +53,7 @@ class ForecastApp extends React.Component {
         // let MODEL_URL = MODEL_HOST + "/plot?seq=" + seq + "&pam_idx=" + pamIndex;
         fetch(request).then(res => res.json()).then(
             (result) => {
+                this.setIsPlotLoading(false);
                 result.error ? this.setPlot(result.error) : this.setPlot(result.plot);
             }
         )
@@ -65,7 +75,10 @@ class ForecastApp extends React.Component {
                     renderPlot={this.renderPlot}
                     plotIsValid={this.plotIsValid()}
                 />
-                <Plot data={this.state.plot}/>
+                <Plot data={this.state.plot}
+                      loading={this.state.loading}
+                      plotIsValid={this.plotIsValid()}
+                />
             </div>
             <Footer/>
         </div>
