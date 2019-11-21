@@ -6,7 +6,8 @@ class Plot extends React.Component {
 
     componentDidUpdate() {
         let plot = this.props.data;
-        if (plot) {
+        if (plot && this.props.plotIsValid) {
+            console.log(plot);
             let plotCodeWithoutNewLineChars = plot.replace(/\r?\n|\r/g, '');
             let plotBuildingFunction = /(!function.*mpld3\))/.exec(plotCodeWithoutNewLineChars)[0];
             new Function(plotBuildingFunction)();
@@ -16,12 +17,12 @@ class Plot extends React.Component {
 
     render() {
         const plotIsValid = this.props.plotIsValid;
+        const plotError = plotIsValid ? <div id="plot"></div> : this.props.data;
         const plotHistory = plotIsValid ?
             <i>dashed line = cut site, red=inserted nucleotides, green=microhomology (location ambiguous)</i> :
             "";
         return <div className="plot">
-            <div id="plot"></div>
-            {!plotIsValid && this.props.data}
+            {plotError}
             {plotHistory}
             <div className="loadingSign">
                 <HashLoader
