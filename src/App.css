@@ -113,3 +113,9 @@ footer a {
     margin-left: auto;
     margin-right: auto;
 }
+
+.errorMsg {
+    color: #cc0000;
+    margin-bottom: 12px;
+}
+

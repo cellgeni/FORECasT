@@ -12,7 +12,6 @@ class Plot extends React.Component {
             let plotBuildingFunction = /(!function.*mpld3\))/.exec(plotCodeWithoutNewLineChars)[0];
             new Function(plotBuildingFunction)();
         }
-
     }
 
     render() {

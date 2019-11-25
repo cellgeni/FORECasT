@@ -1,6 +1,15 @@
 import React from 'react';
 
 const MIN_INDEX = 11;
+const PAM_INDEX = "pamIndex";
+const SEQ = "seq";
+
+function defaultError() {
+    return {
+        "pamIndex": [],
+        "seq": []
+    }
+}
 
 function Caption() {
     return <div className="caption">
@@ -12,10 +21,81 @@ function Caption() {
     </div>;
 }
 
+function isEmpty(object) {
+    for (let key in object) {
+        if (object.hasOwnProperty(key)) {
+            if (object[key].length > 0)
+                return false;
+        }
+    }
+    return true;
+    // return !Object.keys(object).length
+}
+
 class Validator {
 
-    validate(seq, pamIndex) {
+    constructor(seq, pamIndex) {
+        this.errors = defaultError();
+        this.seq = seq;
+        this.pamIndex = pamIndex;
+    }
 
+    validatePamIndexIsInt() {
+        if (/^-{0,1}\d+$/.test(this.pamIndex)) {
+            this.pamIndex = parseInt(this.pamIndex)
+        } else {
+            this.errors[PAM_INDEX].push("PAM index must be a positive number");
+            throw "error"
+        }
+    }
+
+    validatePamIndexLength() {
+        if ((this.pamIndex < 0) || (this.pamIndex >= this.seq.length - 3)) {
+            this.errors[PAM_INDEX].push("PAM index out of range");
+        }
+    }
+
+    validateSeqLength() {
+        if (this.seq.length < 20 ||
+            this.pamIndex < 13 ||
+            this.pamIndex > this.seq.length - 7) {
+            this.errors[PAM_INDEX].push("Sequence too short or PAM too close to edge of sequence " +
+                "(must have at least 10nt either side of cut site)");
+        }
+    }
+
+    validateDNA() {
+        if (!/^[ATGC]*$/.test(this.seq)) {
+            this.errors[SEQ].push("Sequence must be composed of A,T,G,or C only")
+        }
+    }
+
+    validateNGGPAM() {
+        if (this.seq.slice(this.pamIndex + 1, this.pamIndex + 3) != "GG") {
+            this.errors[PAM_INDEX].push("Non NGG PAM (check correct index of PAM)")
+        }
+    }
+
+
+    validatePamIndex() {
+        this.validatePamIndexIsInt();
+        this.validatePamIndexLength();
+    }
+
+    runValidators() {
+        try {
+            this.validatePamIndex();
+            this.validateSeqLength();
+            this.validateDNA();
+            this.validateNGGPAM();
+        } catch (error) {
+        }
+
+    }
+
+    validate() {
+        this.runValidators();
+        return this.errors;
     }
 }
 
@@ -25,7 +105,8 @@ class PredictionForm extends React.Component {
         super(props);
         this.state = {
             "seq": "",
-            "pamIndex": ""
+            "pamIndex": "",
+            errors: defaultError()
         };
         this.suggestExample = this.suggestExample.bind(this);
         this.suggestIndex = this.suggestIndex.bind(this);
@@ -44,25 +125,40 @@ class PredictionForm extends React.Component {
         })
     }
 
+    onSeqChange(event) {
+        this.setSeq(event.target.value);
+    }
+
     setPamIndex(newValue) {
         this.setState({
             "pamIndex": newValue
         })
     }
 
-    onSeqChange(event) {
-        this.setSeq(event.target.value);
-    }
-
-    onSubmit(event) {
-        event.preventDefault();
-        this.props.renderPlot(this.state.seq, this.state.pamIndex);
-        // this.props.renderPlot(event)
-    }
-
     onPamIndexChange(event) {
         this.setPamIndex(event.target.value);
     }
+
+    validateForm(seq, pamIndex) {
+        let validator = new Validator(seq, pamIndex);
+        return validator.validate()
+    }
+
+
+    onSubmit(event) {
+        event.preventDefault();
+        this.props.setPlot("");
+        let errors = this.validateForm(this.state.seq, this.state.pamIndex);
+        this.setState({
+            errors: errors
+        });
+        console.log("errors: ");
+        console.log(errors);
+        if (isEmpty(errors)) {
+            this.props.renderPlot(this.state.seq, this.state.pamIndex);
+        }
+    }
+
 
     suggestExample() {
         const EXAMPLE_SEQ = "ATGCTAGCTAGGGCATGAGGCATGCTAGTGACTGCATGGTAC";
@@ -109,6 +205,9 @@ class PredictionForm extends React.Component {
 
     render() {
         let MODEL_HOST = process.env.REACT_APP_MODEL_HOST;
+        let errorMessages = this.state.errors.seq.concat(this.state.errors.pamIndex).map((errorMsg) =>
+            <li>{errorMsg}</li>
+        );
 
         return <form action="#results" method="post" className="main-form" name="results">
 
@@ -130,7 +229,7 @@ class PredictionForm extends React.Component {
 
             <div className="form-group">
                 <label htmlFor="pam_idx">Index of PAM (0-based)</label>
-                <input id="pam_idx" name="pam_idx" required type="text"
+                <input id="pam_idx" name="pam_idx" required type="number"
                        value={this.state.pamIndex}
                        onChange={this.onPamIndexChange}
                 />
@@ -138,16 +237,16 @@ class PredictionForm extends React.Component {
                 </button>
                 <button type="submit" className="btn btn-primary" id="submit-seq" onClick={this.onSubmit}>Submit
                 </button>
-
                 {this.props.plotIsValid &&
                 <a href={MODEL_HOST + "/api/profile?seq=" + this.state.seq + "&pam_idx=" + this.state.pamIndex}>
                     <button type="button" className="btn btn-primary" id="download-report"
                     >Download
                     </button>
                 </a>}
+                <div className="errorMsg">
+                    {errorMessages}
+                </div>
             </div>
-            {/*{{show_errors(form.seq)}}*/}
-            {/*{{show_errors(form.pam_idx)}}*/}
         </form>
     }
 }
@@ -159,6 +258,7 @@ class Prediction extends React.Component {
                 <Caption/>
                 <PredictionForm
                     renderPlot={this.props.renderPlot}
+                    setPlot={this.props.setPlot}
                     plotIsValid={this.props.plotIsValid}
                 />
             </div>

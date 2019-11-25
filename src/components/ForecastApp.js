@@ -90,6 +90,7 @@ class ForecastApp extends React.Component {
                 <Prediction
                     renderPlot={this.renderPlot}
                     plotIsValid={this.state.plotIsValid}
+                    setPlot={this.setPlot}
                 />
                 <Plot data={this.state.plot}
                       loading={this.state.loading}
