@@ -4,9 +4,10 @@ import HashLoader from 'react-spinners/HashLoader';
 
 class Plot extends React.Component {
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps) {
         let plot = this.props.data;
-        if (plot && this.props.plotIsValid) {
+        let prevPlot = prevProps.data;
+        if (plot !== prevPlot && plot && this.props.plotIsValid) {
             console.log(plot);
             let plotCodeWithoutNewLineChars = plot.replace(/\r?\n|\r/g, '');
             let plotBuildingFunction = /(!function.*mpld3\))/.exec(plotCodeWithoutNewLineChars)[0];

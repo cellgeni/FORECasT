@@ -1,4 +1,5 @@
 import React from 'react';
+import Utils from "../utils/utils";
 
 const MIN_INDEX = 11;
 const PAM_INDEX = "pamIndex";
@@ -21,17 +22,6 @@ function Caption() {
     </div>;
 }
 
-function isEmpty(object) {
-    for (let key in object) {
-        if (object.hasOwnProperty(key)) {
-            if (object[key].length > 0)
-                return false;
-        }
-    }
-    return true;
-    // return !Object.keys(object).length
-}
-
 class Validator {
 
     constructor(seq, pamIndex) {
@@ -41,7 +31,7 @@ class Validator {
     }
 
     validatePamIndexIsInt() {
-        if (/^-{0,1}\d+$/.test(this.pamIndex)) {
+        if (/^\d+$/.test(this.pamIndex)) {
             this.pamIndex = parseInt(this.pamIndex)
         } else {
             this.errors[PAM_INDEX].push("PAM index must be a positive number");
@@ -71,7 +61,7 @@ class Validator {
     }
 
     validateNGGPAM() {
-        if (this.seq.slice(this.pamIndex + 1, this.pamIndex + 3) != "GG") {
+        if (this.seq.slice(this.pamIndex + 1, this.pamIndex + 3) !== "GG") {
             this.errors[PAM_INDEX].push("Non NGG PAM (check correct index of PAM)")
         }
     }
@@ -152,9 +142,7 @@ class PredictionForm extends React.Component {
         this.setState({
             errors: errors
         });
-        console.log("errors: ");
-        console.log(errors);
-        if (isEmpty(errors)) {
+        if (Utils.hasAllMembersEmpty(errors)) {
             this.props.renderPlot(this.state.seq, this.state.pamIndex);
         }
     }
