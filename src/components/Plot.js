@@ -24,10 +24,10 @@ class Plot extends React.Component {
         return <div className="plot">
             {plotError}
             {plotHistory}
-            <div className="loadingSign">
+            <div className="loading-sign">
                 <HashLoader
                     sizeUnit={"px"}
-                    color={'#21bc6b'}
+                    color={'#4B8C92'}
                     loading={this.props.loading}
                 />
             </div>
