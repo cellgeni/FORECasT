@@ -1,4 +1,0 @@
-flask
-jinja2
-requests
-wtforms
