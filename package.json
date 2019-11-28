@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^4.3.1",
+    "dotenv": "^6.2.0",
     "images": "latest",
     "jquery": "^3.4.1",
     "popper.js": "^1.16.0",
