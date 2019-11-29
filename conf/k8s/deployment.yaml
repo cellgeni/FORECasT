@@ -14,12 +14,12 @@ spec:
         app: forecast
     spec:
       containers:
-      - image: quay.io/cellgeni/mprofile-web:1.0.0
+      - image: quay.io/cellgeni/mprofile-web:1.0.1
         imagePullPolicy: IfNotPresent
         name: forecast
         ports:
-        - containerPort: 8005
-          hostPort: 8005
+        - containerPort: 80
+          hostPort: 80
           name: forecast
         resources:
           requests:
@@ -30,7 +30,7 @@ spec:
             cpu: 1
         env:
           - name: MODEL_HOST
-            value: http://predictor.default.svc.cluster.local
+            value: https://selftarget.cellgeni.sanger.ac.uk
         livenessProbe:
           httpGet:
             path: /FORECasT
@@ -55,7 +55,7 @@ spec:
         app: predictor
     spec:
       containers:
-      - image: quay.io/felicityallen/selftarget:0.1.9
+      - image: quay.io/felicityallen/selftarget:0.2.1
         imagePullPolicy: IfNotPresent
         name: predictor
         ports:
