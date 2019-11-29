@@ -7,7 +7,7 @@ FORECasT is a web application that gives access to a predictor of Cas9 editing o
 The paper is available on [BioRxiv](https://www.biorxiv.org/content/early/2018/08/25/400341), and the application itself at
 https://partslab.sanger.ac.uk.
 
-The application consists of two Flask servers: an interface part (this repository) and a
+The application consists of two components: a React front end (this repository) and a
 [predictor](https://github.com/felicityallen/SelfTarget).
 Having it as two separate servers allows to decouple the model from the interface and develop both components 
 independently.
@@ -20,13 +20,11 @@ independently.
 1. Start predictor server (see [README](https://github.com/felicityallen/SelfTarget/blob/master/README.md)). 
 According to instructions, it will run on port 5001
 
-2. Create a virtual environment, activate it, and launch server
+2. Install packages and run the FORECasT server, it will be opened in a browser automatically
     ```bash
-    pip install -r app/requirements.txt
-    export MODEL_HOST=http://127.0.0.1:5001
-    python app/main.py
+    npm install
+    REACT_APP_MODEL_HOST=http://127.0.0.1:5001 npm run start
     ```
-3. Open [http://127.0.0.1:5000](http://127.0.0.1:5000) in browser
 
 
 #### With Docker
@@ -35,17 +33,15 @@ docker pull quay.io/cellgeni/mprofile-web
 docker pull quay.io/felicityallen/selftarget
 docker network create forecast-net
 docker run -d --name selftarget --net forecast-net quay.io/felicityallen/selftarget
-docker run -d --name forecast -p 5000:8005 --net forecast-net -e "MODEL_HOST=http://selftarget:8006" quay.io/cellgeni/mprofile-web
+docker run -d --name forecast -p 3000:8005 --net forecast-net -e "REACT_APP_MODEL_HOST=http://selftarget:8006" quay.io/cellgeni/mprofile-web
 ```
-Open [http://127.0.0.1:5000](http://127.0.0.1:5000) in browser
+Open [http://127.0.0.1:3000](http://127.0.0.1:3000) in browser
 
 Cleaning up
 ```bash
 docker rm -f selftarget forecast
 docker network rm forecast-net
 ```
-
-For dockerizing, [uwsgi-nginx-flask-docker](https://github.com/tiangolo/uwsgi-nginx-flask-docker) was used.
 
 #### With Kubernetes
 
