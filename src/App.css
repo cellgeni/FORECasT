@@ -12,6 +12,11 @@
     margin-top: 20px;
 }
 
+#plot{
+    margin-left: -50px;
+    margin-right: -50px;
+}
+
 .reference {
     margin: 30px 0;
 }
@@ -107,6 +112,7 @@ footer a {
     color: #ffffff;
 }
 
+/* TODO: FIX LOADING SIGN STUCK IN THE MIDDLE OF A SCREEN */
 .loading-sign {
     position: absolute;
     top:  50%;
