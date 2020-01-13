@@ -114,11 +114,11 @@ footer a {
 
 /* TODO: FIX LOADING SIGN STUCK IN THE MIDDLE OF A SCREEN */
 .loading-sign {
-    position: absolute;
-    top:  50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    margin-top: 20px;
+    text-align: center;
+}
+
+#loading-sign{
+    display: inline-block;
 }
 
 .errorMsg {
