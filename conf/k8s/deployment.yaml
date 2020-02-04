@@ -14,7 +14,7 @@ spec:
         app: forecast
     spec:
       containers:
-      - image: quay.io/cellgeni/mprofile-web:1.0.1
+      - image: quay.io/cellgeni/mprofile-web:1.0.2
         imagePullPolicy: IfNotPresent
         name: forecast
         ports:
@@ -55,7 +55,7 @@ spec:
         app: predictor
     spec:
       containers:
-      - image: quay.io/felicityallen/selftarget:0.2.1
+      - image: quay.io/felicityallen/selftarget:0.3.2
         imagePullPolicy: IfNotPresent
         name: predictor
         ports:
@@ -74,6 +74,8 @@ spec:
           value: mongodb://cellgeni:cellgeni@my-release-mongodb.default.svc.cluster.local:27017/wge
         - name: S3_BASE
           value: https://fa9.cog.sanger.ac.uk/
+        - name: PRECOMPUTED_PLOTS_DIR
+          value: /app/indel_prediction
         livenessProbe:
           httpGet:
             path: /ping
@@ -81,41 +83,4 @@ spec:
           initialDelaySeconds: 10
           timeoutSeconds: 1
           periodSeconds: 240
-#---
-#apiVersion: apps/v1
-#kind: Deployment
-#metadata:
-#  name: mongo
-#spec:
-#  selector:
-#    matchLabels:
-#      app: mongo
-#  replicas: 1
-#  template:
-#    metadata:
-#      name: mongo
-#      labels:
-#        app: mongo
-#    spec:
-#      containers:
-#      - image: quay.io/felicityallen/selftarget:v0.1.6
-#        imagePullPolicy: IfNotPresent
-#        name: mongo
-#        ports:
-#        - containerPort: 8006
-#          hostPort: 8006
-#          name: mongo
-#        resources:
-#          requests:
-#            memory: "1Gi"
-#            cpu: 1
-#          limits:
-#            memory: "4Gi"
-#            cpu: 4
-#        livenessProbe:
-#          httpGet:
-#            path: /ping
-#            port: mongo
-#          initialDelaySeconds: 10
-#          timeoutSeconds: 1
-#          periodSeconds: 240
+
