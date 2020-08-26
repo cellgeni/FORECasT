@@ -33,9 +33,9 @@ docker pull quay.io/cellgeni/mprofile-web
 docker pull quay.io/felicityallen/selftarget
 docker network create forecast-net
 docker run -d --name selftarget --net forecast-net quay.io/felicityallen/selftarget
-docker run -d --name forecast -p 3000:8005 --net forecast-net -e "REACT_APP_MODEL_HOST=http://selftarget:8006" quay.io/cellgeni/mprofile-web
+docker run -d --name forecast -p 80:80 --net forecast-net -e "REACT_APP_MODEL_HOST=http://selftarget:8006" quay.io/cellgeni/mprofile-web
 ```
-Open [http://127.0.0.1:3000](http://127.0.0.1:3000) in browser
+Open [http://127.0.0.1](http://127.0.0.1) in browser
 
 Cleaning up
 ```bash
